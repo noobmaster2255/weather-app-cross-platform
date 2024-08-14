@@ -1,12 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import styles from "./src/styles/main";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import HomeScreen from "./src/pages/Home/home";
-import ProfileScreen from "./src/pages/Profile/profile";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import BookmarkScreen from "./src/pages/Bookmarks/bookmarks";
+import { HomeScreen, ProfileScreen, BookmarkScreen } from "./src/pages";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -33,6 +28,7 @@ export default function App() {
                 iconName = "person";
                 break;
             }
+
             return <Ionicons name={iconName} color={color} size={24} />;
           },
           tabBarLabel: route.name,
