@@ -14,10 +14,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
   },
+  contentContainer:{
+    flexGrow: 1
+  },
   container: {
     backgroundColor: colors.backgroundColor,
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     paddingVertical: 10,
   },
   topRowContainer:{
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
     width:'100%',
     overflow:'hidden',
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   currentLocationIcon:{
     width: 60,
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     borderRadius: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     backgroundColor: colors.tileColor,
     width: "100%",
     shadowColor: "#000",
@@ -106,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: 20,
     paddingVertical: 20,
-    marginBottom: 20,
+    marginBottom: 30,
     borderRadius: 20,
     backgroundColor: colors.tileColor2,
     width: "100%",
@@ -169,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    marginBottom: 20,
+    marginBottom: 30,
 
     item: {
       display: "flex",
@@ -200,6 +203,47 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
     },
   },
+
+
+  forecastContainer:{
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'space-around',
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    marginBottom: 30,
+    borderRadius: 20,
+    backgroundColor: colors.tileColor2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 0,
+    width:'100%',
+  },
+
+  forecatTitle:{
+    color:colors.textColor2,
+    fontSize:25,
+    fontWeight:'800',
+    marginBottom:20,
+  },
+  rowForecast:{
+    display:'flex',
+    flexDirection:'row',
+    width:'100%',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingVertical: 20
+  },
+  forecastLabel:{
+    fontSize: 14,
+    fontWeight: '500',
+    color:colors.textColor2,
+    // width: '26%',
+    textAlign:'left'
+  }
 });
 
 export default styles;
