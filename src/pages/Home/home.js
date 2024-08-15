@@ -12,16 +12,17 @@ import styles from "./style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import * as database from '../../database'
+import * as database from "../../database";
+import ForecastItem from "../../components/Forecast/forecast";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const [serachQuery, setSearchQuery] = useState('');
+  const [serachQuery, setSearchQuery] = useState("");
 
   const handleSearchQueryChange = (value) => {
     setSearchQuery(value);
-  }
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -98,24 +99,7 @@ export default function HomeScreen({ navigation }) {
           </View>
 
           <View style={styles.forecastContainer}>
-            <Text style={styles.forecatTitle}>Forecast</Text>
-            <View style={styles.rowForecast}>
-              <Text style={styles.forecastLabel}>Tommorow</Text>
-              <Text style={styles.forecastLabel}>Sunny</Text>
-              <Text style={styles.forecastLabel}>23°C</Text>
-            </View>
-
-            <View style={styles.rowForecast}>
-              <Text style={styles.forecastLabel}>Tuesday</Text>
-              <Text style={styles.forecastLabel}>Sunny</Text>
-              <Text style={styles.forecastLabel}>23°C</Text>
-            </View>
-
-            <View style={styles.rowForecast}>
-              <Text style={styles.forecastLabel}>Wednesday</Text>
-              <Text style={styles.forecastLabel}>Sunny</Text>
-              <Text style={styles.forecastLabel}>23°C</Text>
-            </View>
+            <ForecastItem />
           </View>
         </ScrollView>
       </View>

@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     justifyContent:'space-around',
     paddingHorizontal: 20,
     paddingVertical: 20,
-    marginBottom: 30,
+    marginBottom: 100,
     borderRadius: 20,
     backgroundColor: colors.tileColor2,
     shadowColor: "#000",
@@ -232,22 +232,7 @@ const styles = StyleSheet.create({
     fontWeight:'800',
     marginBottom:20,
   },
-  rowForecast:{
-    display:'flex',
-    flexDirection:'row',
-    gap:1,
-    width:'100%',
-    alignItems:'center',
-    justifyContent:'space-between',
-    paddingVertical: 20
-  },
-  forecastLabel:{
-    fontSize: 14,
-    fontWeight: '500',
-    color:colors.textColor2,
-    // width: '26%',
-    textAlign:'left'
-  }
+ 
 });
 
 export default styles;
