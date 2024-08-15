@@ -22,7 +22,7 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <Text style={styles.titile}>Profile</Text>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <View style={styles.profileIcon}>
             <Image
               style={styles.profileImg}
@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation }) {
               onPressIn={() => setPressed2(true)}
               onPressOut={() => setPressed2(false)}
             >
-              <Text style={[styles.buttonText2, pressed && styles.btnTextchange2]}>Create New Account</Text>
+              <Text style={[styles.buttonText2, pressed2 && styles.btnTextchange2]}>Create New Account</Text>
             </Pressable>
           </View>
         </ScrollView>
