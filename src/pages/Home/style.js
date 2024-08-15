@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "space-between",
-    width: "50%",
+    // width: "50%",
 
     imageConatiner: {
       width: 100,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
 
     temperatureLabel: {
-      fontSize: 55,
+      fontSize: 40,
       fontWeight: "800",
       color: colors.textColor2,
       marginBottom: 10,
