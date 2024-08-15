@@ -7,16 +7,23 @@ export default function HomeScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <StatusBar style="auto" />
-        <View style={styles.searchContainer}>
-          <Ionicons name="search" size={26} color="gray" style={styles.searchIcon} />
-          <TextInput
-            style={styles.searchBar}
-            placeholder="Search..."
-            clearButtonMode="always"
-            autoCorrect={false}
-            autoCapitalize="none"
+        <View style={styles.topRowContainer}>
+          <Image
+            style={styles.currentLocationIcon}
+            source={require("../../../assets/images/loc-icon.png")}
           />
+          <View style={styles.searchContainer}>
+            <Ionicons name="search" size={26} color="gray" style={styles.searchIcon} />
+            <TextInput
+              style={styles.searchBar}
+              placeholder="Search..."
+              clearButtonMode="always"
+              autoCorrect={false}
+              autoCapitalize="none"
+            />
+          </View>
         </View>
+
         <View style={styles.locationContainer}>
           <View style={styles.locationRow}>
             {/* Fixed typo here */}
