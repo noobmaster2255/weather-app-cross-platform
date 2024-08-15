@@ -59,7 +59,7 @@ export default function ProfileScreen({ navigation }) {
               onPressIn={() => setPressed2(true)}
               onPressOut={() => setPressed2(false)}
             >
-              <Text style={[styles.buttonText2, pressed && styles.btnTextchange2]}>Create New Account</Text>
+              <Text style={[styles.buttonText2, pressed2 && styles.btnTextchange2]}>Create New Account</Text>
             </Pressable>
           </View>
         </ScrollView>
