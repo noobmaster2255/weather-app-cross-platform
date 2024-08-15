@@ -2,15 +2,7 @@ import { collection, setDoc, doc, updateDoc, deleteDoc } from "firebase/firestor
 import { getAuth } from "firebase/auth";
 import { db } from "./config";
 
-export async function getWeatherDetails(params) {
-    const apiUrlStr = `${baseUrl}key=${apiKey}&q=${params.query}&days=3&aqi=no&alerts=no`;
 
-    fetch(apiUrlStr)
-        .then((response) => { 
-            return response.json() 
-        });
-
-}
 
 export async function addBookmark(data) {
     try {
