@@ -18,7 +18,7 @@ import ForecastItem from "../../components/Forecast/forecast";
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
-  const [serachQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(null);
   const [weatherDetails, setWeatherDetails] = useState(null);
   const [locationDate, setLocationDate] = useState('');
   const [locationName, setLocationName] = useState('');
@@ -34,9 +34,9 @@ export default function HomeScreen({ navigation }) {
     setSearchQuery(value);
   }
 
-  const handleSeachquerySubmit = (event) => {
+  const handleSeachQuerySubmit = (event) => {
     console.log('Submitted text:', event.nativeEvent.text);
-    setSearchQuery(null);
+    setSearchQuery('');
     database.getSearchWeatherDetails(event.nativeEvent.text)
       .then(res => {
         console.log('Resposen: ', res)
@@ -73,8 +73,8 @@ export default function HomeScreen({ navigation }) {
               autoCorrect={false}
               autoCapitalize="none"
 
-              value={serachQuery}
-              onSubmitEditing={handleSeachquerySubmit}
+              value={searchQuery}
+              onSubmitEditing={handleSeachQuerySubmit}
 
             />
           </View>
