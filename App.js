@@ -2,11 +2,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { HomeScreen, ProfileScreen, BookmarkScreen } from "./src/pages";
 import { Ionicons } from "@expo/vector-icons";
+import { Provider } from 'react-redux';
+import store from './src/redux/store';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
@@ -39,5 +42,6 @@ export default function App() {
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
