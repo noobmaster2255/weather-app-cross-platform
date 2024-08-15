@@ -234,6 +234,7 @@ const styles = StyleSheet.create({
   rowForecast:{
     display:'flex',
     flexDirection:'row',
+    gap:1,
     width:'100%',
     alignItems:'center',
     justifyContent:'space-between',
