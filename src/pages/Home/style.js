@@ -206,32 +206,6 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
     },
   },
-
-
-  forecastContainer:{
-    display:'flex',
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent:'space-around',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    marginBottom: 100,
-    borderRadius: 20,
-    backgroundColor: colors.tileColor2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-    elevation: 5,
-    width:'100%',
-  },
-
-  forecatTitle:{
-    color:colors.textColor2,
-    fontSize:25,
-    fontWeight:'800',
-    marginBottom:20,
-  },
  
 });
 

@@ -22,7 +22,7 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <Text style={styles.titile}>Profile</Text>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <View style={styles.profileIcon}>
             <Image
               style={styles.profileImg}

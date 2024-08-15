@@ -8,7 +8,7 @@ export default function BookmarkScreen({ navigation }) {
       <View style={styles.container}>
         <StatusBar style="auto" />
         <Text style={styles.titile}>Saved Locations</Text>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           {/* saved location container  */}
           <BookmarkItem/>
         </ScrollView>
