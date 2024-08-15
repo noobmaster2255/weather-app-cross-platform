@@ -172,10 +172,11 @@ const styles = StyleSheet.create({
   itemsRow: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
     width: "100%",
     marginBottom: 30,
+    marginHorizontal:1,
 
     item: {
       display: "flex",
@@ -192,8 +193,8 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
     },
     image: {
-      width: 50,
-      height: 50,
+      width: 45,
+      height: 45,
       shadowColor: "#000",
       shadowOffset: { width: 1, height: 1 },
       shadowOpacity: 0.3,
