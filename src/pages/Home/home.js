@@ -10,8 +10,19 @@ import {
 } from "react-native";
 import styles from "./style";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import * as database from '../../database'
 
 export default function HomeScreen({ navigation }) {
+  const dispatch = useDispatch();
+
+  const [serachQuery, setSearchQuery] = useState('');
+
+  const handleSearchQueryChange = (value) => {
+    setSearchQuery(value);
+  }
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
