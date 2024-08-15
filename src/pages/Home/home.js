@@ -17,17 +17,56 @@ export default function HomeScreen({ navigation }) {
             autoCapitalize="none"
           />
         </View>
-        <View style={styles.weatherContainer}>
-          <View style={styles.locationContainer}>
+        <View style={styles.locationContainer}>
+          <View style={styles.locationRow}>
             {/* Fixed typo here */}
-            <Text>Location Name</Text>
-            <Text>Sunday 01/23</Text>
+            <Text style={styles.locationName}>London, Onatrio, Cananda</Text>
+            <Text style={{ color: "#717171" }}>Sunday 01/23</Text>
           </View>
           <View>
             <Image
               style={styles.weatherImg}
+              source={require("../../../assets/images/map-img.png")}
+            />
+          </View>
+        </View>
+        <View style={styles.weatherContainer}>
+          <View style={styles.column1}>
+            <View style={styles.column1.imageConatiner}>
+              <Image
+                style={styles.column1.img}
+                source={require("../../../assets/images/cloudy.png")}
+              />
+            </View>
+            <Text style={styles.column1.weatherConditonLabel}>Heavy Rain</Text>
+          </View>
+          <View style={styles.column2}>
+            <Text style={styles.column2.temperatureLabel}>22°C</Text>
+            <Text style={styles.column2.feelslikeLabel}>Feels like 22°C</Text>
+          </View>
+        </View>
+
+        <View style={styles.itemsRow}>
+          <View style={styles.itemsRow.item}>
+            <Image
+              style={styles.itemsRow.image}
               source={require("../../../assets/images/cloudy.png")}
             />
+            <Text>6 mi/h</Text>
+          </View>
+          <View style={styles.itemsRow.item}>
+            <Image
+              style={styles.itemsRow.image}
+              source={require("../../../assets/images/cloudy.png")}
+            />
+            <Text>6 mi/h</Text>
+          </View>
+          <View style={styles.itemsRow.item}>
+            <Image
+              style={styles.itemsRow.image}
+              source={require("../../../assets/images/cloudy.png")}
+            />
+            <Text>6 mi/h</Text>
           </View>
         </View>
       </View>
