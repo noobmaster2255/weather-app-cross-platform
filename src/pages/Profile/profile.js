@@ -14,6 +14,9 @@ import { useState } from "react";
 
 export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const [pressed2, setPressed2] = useState(false);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
@@ -40,11 +43,25 @@ export default function ProfileScreen({ navigation }) {
               value={isEnabled}
             />
           </View>
-          {/* <View> */}
-            <Pressable style={styles.btn} onPress={() => console.log("Pressed")}>
-              <Text style={styles.buttonText}>Logout</Text>
+          <View style={styles.btnContainer}>
+            <Pressable
+              style={[styles.btn, pressed && styles.btnPressed]}
+              onPress={() => console.log("Pressed")}
+              onPressIn={() => setPressed(true)}
+              onPressOut={() => setPressed(false)}
+            >
+              <Text style={[styles.buttonText, pressed && styles.btnTextchange]}>Logout</Text>
             </Pressable>
-          {/* </View> */}
+
+            <Pressable
+              style={[styles.btn2, pressed2 && styles.btnPressed2]}
+              onPress={() => console.log("Sign up pressed")}
+              onPressIn={() => setPressed2(true)}
+              onPressOut={() => setPressed2(false)}
+            >
+              <Text style={[styles.buttonText2, pressed && styles.btnTextchange2]}>Create New Account</Text>
+            </Pressable>
+          </View>
         </ScrollView>
       </View>
     </SafeAreaView>
