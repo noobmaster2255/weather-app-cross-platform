@@ -50,23 +50,23 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.itemsRow.item}>
             <Image
               style={styles.itemsRow.image}
-              source={require("../../../assets/images/cloudy.png")}
+              source={require("../../../assets/images/wind.png")}
             />
-            <Text>6 mi/h</Text>
+            <Text style={styles.itemsRow.itemText}>6 mi/h</Text>
           </View>
           <View style={styles.itemsRow.item}>
             <Image
               style={styles.itemsRow.image}
-              source={require("../../../assets/images/cloudy.png")}
+              source={require("../../../assets/images/humidity.png")}
             />
-            <Text>6 mi/h</Text>
+            <Text style={styles.itemsRow.itemText}>75%</Text>
           </View>
           <View style={styles.itemsRow.item}>
             <Image
               style={styles.itemsRow.image}
-              source={require("../../../assets/images/cloudy.png")}
+              source={require("../../../assets/images/sun.png")}
             />
-            <Text>6 mi/h</Text>
+            <Text style={styles.itemsRow.itemText}>6 weak</Text>
           </View>
         </View>
       </View>

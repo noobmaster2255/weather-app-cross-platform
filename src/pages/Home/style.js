@@ -98,6 +98,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: colors.tileColor2,
     width: "100%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 0,
   },
   column1: {
     display: "flex",
@@ -131,7 +136,7 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
 
     temperatureLabel: {
       fontSize: 55,
@@ -149,24 +154,38 @@ const styles = StyleSheet.create({
   itemsRow: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
-    width: '100%',
+    width: "100%",
+    marginBottom: 20,
 
     item: {
       display: "flex",
       flexDirection: "column",
-    },
-    image: {
-      // backgroundColor: colors.tileColor,
-      borderRadius: 5,
+      alignItems: "center",
+      borderRadius: 15,
       shadowColor: "#000",
-      shadowOffset: { width: 0, height: 5 },
-      shadowOpacity: 0.1,
+      shadowOffset: { width: 1, height: 5 },
+      shadowOpacity: 0.2,
       shadowRadius: 2,
       elevation: 5,
+      backgroundColor: colors.tileColor,
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+    },
+    image: {
       width: 50,
       height: 50,
+      shadowColor: "#000",
+      shadowOffset: { width: 1, height: 1 },
+      shadowOpacity: 0.3,
+      shadowRadius: 2,
+      elevation: 5,
+      marginBottom: 5,
+    },
+    itemText: {
+      fontSize: 16,
+      fontWeight: "bold",
     },
   },
 });
