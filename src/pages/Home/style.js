@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: colors.backgroundColor,
+    display:'flex',
+    flexDirection:'column',
     alignItems: "center",
     paddingHorizontal: 25,
     paddingVertical: 10,
