@@ -10,9 +10,9 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="Home"
-        activeColor="#4778cc"
+        activeColor="#375f96"
         inactiveColor="#3e2465"
-        // barStyle={{ backgroundColor: '#694fad' }}
+        barStyle={{ backgroundColor: '#deebfe' }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             let iconName;

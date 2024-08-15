@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundColor,
   },
   contentContainer:{
-    flexGrow: 1
+    flexGrow: 1,
+    alignItems:'center',
   },
   container: {
     backgroundColor: colors.backgroundColor,
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 0,
+    elevation: 5,
   },
   column1:{
     display: "flex",
