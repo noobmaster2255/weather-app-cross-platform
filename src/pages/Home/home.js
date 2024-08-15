@@ -44,10 +44,9 @@ export default function HomeScreen({ navigation }) {
             />
           </View>
         </View>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
           <View style={styles.locationContainer}>
             <View style={styles.locationRow}>
-              {/* Fixed typo here */}
               <Text style={styles.locationName}>London, Onatrio, Cananda</Text>
               <Text style={{ color: "#717171" }}>Sunday 01/23</Text>
             </View>
@@ -97,10 +96,7 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.itemsRow.itemText}>6 weak</Text>
             </View>
           </View>
-
-          <View style={styles.forecastContainer}>
-            <ForecastItem />
-          </View>
+          <ForecastItem />
         </ScrollView>
       </View>
     </SafeAreaView>
