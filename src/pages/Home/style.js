@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundColor,
   },
   contentContainer:{
-    flexGrow: 1
+    flexGrow: 1,
+    alignItems:'center',
   },
   container: {
     backgroundColor: colors.backgroundColor,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.15,
     shadowRadius: 2,
-    elevation: 0,
+    elevation: 5,
   },
   locationRow: {
     flexDirection: "column",
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 0,
+    elevation: 5,
   },
   column1: {
     display: "flex",
@@ -221,7 +222,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    elevation: 0,
+    elevation: 5,
     width:'100%',
   },
 
@@ -234,6 +235,7 @@ const styles = StyleSheet.create({
   rowForecast:{
     display:'flex',
     flexDirection:'row',
+    gap:1,
     width:'100%',
     alignItems:'center',
     justifyContent:'space-between',
