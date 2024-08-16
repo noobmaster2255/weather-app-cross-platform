@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const colors = {
     textColor: "#000",
     textColor2: "#fff",
-    backgroundColor: "#fff",
+      backgroundColor: "#fff",
     tileColor: "#deebfe",
     tileColor2: "#375f96",
   };

@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
   const handleSearchQueryChange = (value) => {
     setSearchQuery(value);
-  }
+  };
 
   const handleSeachQuerySubmit = async (event) => {
     setSearchQuery('');
