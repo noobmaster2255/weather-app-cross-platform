@@ -5,7 +5,6 @@ import {
   onAuthStateChanged,
   signOut,
 } from "firebase/auth";
-import Toast from "react-native-toast-message";
 import showToast from "../components/ToastItem/ToastItem";
 
 export async function signUp(email, password) {
@@ -13,9 +12,9 @@ export async function signUp(email, password) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    login(email, password);
-    showToast("sucess", "SignUp Successful", `Welcome, ${email}!`);
+    showToast("success", "SignUp Successful", `Welcome, ${email}!`);
     console.log("user signed up successfully", user.email);
+    login(email, password);
   } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
@@ -56,15 +55,14 @@ export function checkUserLoginStatus(callback) {
 
 export function logOut() {
   const auth = getAuth();
-  signOut(auth)
-    .then(() => {
-      console.log("User is logged out:", user.email);
-      showToast("success", "Log out successfull!");
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      showToast("error", "LogOut Failed");
-      console.error(`Error [${errorCode}]: ${errorMessage}`);
-    });
+  try {
+    signOut(auth);
+    console.log("User is logged out:", user.email);
+    showToast("success", "Log out successfull!", "");
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    showToast("error", "LogOut Failed", "");
+    console.error(`Error [${errorCode}]: ${errorMessage}`);
+  }
 }
