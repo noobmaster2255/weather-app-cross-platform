@@ -30,8 +30,8 @@ export default function ProfileScreen({ navigation }) {
         setIsLoggedIn(loggedIn);
         setUser(user);
       });
-    };
 
+    };
     checkLoginStatus();
   }, []);
 
@@ -45,7 +45,7 @@ export default function ProfileScreen({ navigation }) {
     setIsModalVisible(true);
   };
   const formatUserEmail = (email) => {
-    const userEmail = email ? email : "noobmaster@gmail.com";
+    const userEmail = email ? email : "";
     const [username] = userEmail.split("@");
     const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
 
@@ -76,7 +76,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
           <View>
             <Text style={styles.profileName}>{formatUserEmail(user)}</Text>
-            <Text style={styles.profileEmail}>{user ? user : "noobmaster@gmail.com"}</Text>
+            <Text style={styles.profileEmail}>{user}</Text>
           </View>
 
           {/* Notifications  */}

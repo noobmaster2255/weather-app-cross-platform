@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   column1: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "flex-start",
+    alignItems: "center",
     justifyContent: "space-between",
     // width: "50%",
 

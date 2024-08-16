@@ -53,11 +53,10 @@ export function checkUserLoginStatus(callback) {
   });
 }
 
-export function logOut() {
+export async function logOut() {
   const auth = getAuth();
   try {
-    signOut(auth);
-    console.log("User is logged out:", user.email);
+    await signOut(auth);
     showToast("success", "Log out successfull!", "");
   } catch (error) {
     const errorCode = error.code;
