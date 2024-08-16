@@ -23,6 +23,7 @@ export async function load() {
 
 
 export async function getSearchWeatherDetails(query) {
+    
     const apiUrlStr = `${baseUrl}key=${apiKey}&q=${query}&days=3&aqi=no&alerts=no`;
 
     try {
