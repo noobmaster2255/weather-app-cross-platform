@@ -121,6 +121,8 @@ export default function ProfileScreen({ navigation }) {
             )}
 
             {user ? (
+              ""
+            ) : (
               <Pressable
                 style={[styles.btn2, pressed2 && styles.btnPressed2]}
                 onPress={() => [setIsModalVisible(true), setIsLoginModal(false)]}
@@ -131,7 +133,7 @@ export default function ProfileScreen({ navigation }) {
                   Create New Account
                 </Text>
               </Pressable>
-            ) : ''}
+            )}
             {/* Sign up btn  */}
           </View>
         </ScrollView>

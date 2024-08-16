@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
   },
+  toastContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
+  },
   contentContainer: {
     flexGrow: 1,
     alignItems: "center",

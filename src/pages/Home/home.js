@@ -11,49 +11,77 @@ import {
 } from "react-native";
 import styles from "./style";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as database from "../../database";
 import Forecasts from "../../components/Forecasts/forecasts";
 import { setHomeLocation } from "../../redux/weatherSlice";
-import * as Location from 'expo-location';
-
-
+import * as Location from "expo-location";
+import Toast from "react-native-toast-message";
+import showToast from "../../components/ToastItem/ToastItem";
+import { auth } from "../../database/config";
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const [isUserLogIn, setUserLogIn] = useState(false);
+  const [isBookmarkAdded, setBookMarkAdded] = useState(false);
+  const data = useSelector((state) => state.weather.homeLocation);
 
-  const data = useSelector((state) => state.weather.homeLocation)
+  useEffect(() => {
+    if (isUserLogIn && data) {
+      const location = `${data.location.name}_${data.location.region}`;
+      setBookMarkAdded(database.checkBookmarkStatus(location));
+    } else {
+      setBookMarkAdded(false);
+    }
+  }, []);
 
   const handleSearchQueryChange = (value) => {
     setSearchQuery(value);
   };
 
+  const handleBookmarkClick = () => {
+    database.checkUserLoginStatus((loggedIn, user) => {
+      setUserLogIn(loggedIn);
+    });
+    if (isUserLogIn) {
+      const isAdded = database.addBookmark(data);
+      if (isAdded) {
+        setBookMarkAdded(true);
+        showToast("success", "BookedMark added successfully!");
+      }
+    }
+  };
+
   const handleSeachQuerySubmit = async (event) => {
-    setSearchQuery('');
-    getWeatherDetails(event.nativeEvent.text)
-  }
+    setSearchQuery("");
+    getWeatherDetails(event.nativeEvent.text);
+  };
 
   const getWeatherDetails = async (query) => {
-    console.log('query: ', query);
-    const result = await database.getSearchWeatherDetails(query)
-      .then(res => {
-        return res
-      });
+    console.log("query: ", query);
+    const result = await database.getSearchWeatherDetails(query).then((res) => {
+      return res;
+    });
     dispatch(setHomeLocation(result));
-  }
+  };
 
   const handleLocationWeather = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
+    if (status !== "granted") {
+      setErrorMsg("Permission to access location was denied");
       return;
     }
     let location = await Location.getCurrentPositionAsync({});
     getWeatherDetails(`${location.coords.latitude},${location.coords.longitude}`);
+  };
+  let dayOfWeek = null;
+  if (data) {
+    const date = new Date(data.location.localtime);
+    dayOfWeek = new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(date);
   }
 
   if (data) {
@@ -61,6 +89,10 @@ export default function HomeScreen({ navigation }) {
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.container}>
           <StatusBar style="auto" />
+          {/* Toast  */}
+          <View style={styles.toastContainer}>
+            <Toast />
+          </View>
           <View style={styles.topRowContainer}>
             <Pressable onPress={handleLocationWeather}>
               <Image
@@ -79,20 +111,30 @@ export default function HomeScreen({ navigation }) {
                 value={searchQuery}
                 onChangeText={handleSearchQueryChange}
                 onSubmitEditing={handleSeachQuerySubmit}
-
               />
             </View>
           </View>
-          <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+            showsVerticalScrollIndicator={false}
+          >
             <View style={styles.locationContainer}>
               <View style={styles.locationRow}>
                 {/* Fixed typo here */}
-                <Text style={styles.locationName}>{data.location.name}, {data.location.region}</Text>
-                <Text style={{ color: "#717171" }}>Sunday 01/23</Text>
+                <Text style={styles.locationName}>
+                  {data.location.name}, {data.location.region}
+                </Text>
+                <Text style={{ color: "#717171" }}>{dayOfWeek}</Text>
               </View>
               <View style={styles.iconsCol}>
-              {/* bookmark-sharp */}
-              <Ionicons name="bookmark-outline" color="#375f96" size={30} />
+                {/* bookmark-sharp */}
+                <Pressable onPress={handleBookmarkClick}>
+                  {isBookmarkAdded ? (
+                    <Ionicons name="bookmark-sharp" color="#375f96" size={30} />
+                  ) : (
+                    <Ionicons name="bookmark-outline" color="#375f96" size={30} />
+                  )}
+                </Pressable>
                 <Image
                   style={styles.weatherImg}
                   source={require("../../../assets/images/map-img.png")}
@@ -108,11 +150,21 @@ export default function HomeScreen({ navigation }) {
                     resizeMode="contain"
                   />
                 </View>
-                <Text style={styles.column1.weatherConditonLabel}>{data.current.condition.text}</Text>
+                <View style={{ width: 100 }}>
+                  <Text
+                    ellipsizeMode="tail"
+                    numberOfLines={2}
+                    style={styles.column1.weatherConditonLabel}
+                  >
+                    {data.current.condition.text}
+                  </Text>
+                </View>
               </View>
               <View style={styles.column2}>
                 <Text style={styles.column2.temperatureLabel}>{data.current.temp_c}°C</Text>
-                <Text style={styles.column2.feelslikeLabel}>Feels Like {data.current.feelslike_c}°C</Text>
+                <Text style={styles.column2.feelslikeLabel}>
+                  Feels Like {data.current.feelslike_c}°C
+                </Text>
               </View>
             </View>
 
@@ -164,11 +216,9 @@ export default function HomeScreen({ navigation }) {
                 clearButtonMode="always"
                 autoCorrect={false}
                 autoCapitalize="none"
-
                 value={searchQuery}
                 onChangeText={handleSearchQueryChange}
                 onSubmitEditing={handleSeachQuerySubmit}
-
               />
             </View>
           </View>
@@ -176,5 +226,4 @@ export default function HomeScreen({ navigation }) {
       </SafeAreaView>
     );
   }
-
 }

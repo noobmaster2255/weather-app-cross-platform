@@ -8,7 +8,6 @@ const BookmarkItem = ({ day, weather, temperature }) => {
     <View style={styles.bookmarkContainer}>
       <View style={styles.column1}>
         <Text style={styles.column2.label2}>22°C</Text>
-
         <Text style={styles.column1.label1}>Kochi, Kerala, India</Text>
       </View>
       <View style={styles.column2}>
