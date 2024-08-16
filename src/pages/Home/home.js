@@ -69,7 +69,9 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.locationName}>{data.location.name}, {data.location.region}</Text>
                 <Text style={{ color: "#717171" }}>Sunday 01/23</Text>
               </View>
-              <View>
+              <View style={styles.iconsCol}>
+              {/* bookmark-sharp */}
+              <Ionicons name="bookmark-outline" color="#375f96" size={30} />
                 <Image
                   style={styles.weatherImg}
                   source={require("../../../assets/images/map-img.png")}

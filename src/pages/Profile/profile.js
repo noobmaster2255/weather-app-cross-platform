@@ -30,15 +30,14 @@ export default function ProfileScreen({ navigation }) {
         setIsLoggedIn(loggedIn);
         setUser(user);
       });
-
     };
     checkLoginStatus();
   }, []);
 
-  const handleLogout = async() => {
-      await database.logOut()
-      setIsLoggedIn(false);
-      setUser(null);
+  const handleLogout = async () => {
+    await database.logOut();
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   const handleLogin = () => {
@@ -121,17 +120,19 @@ export default function ProfileScreen({ navigation }) {
               </Pressable>
             )}
 
+            {user ? (
+              <Pressable
+                style={[styles.btn2, pressed2 && styles.btnPressed2]}
+                onPress={() => [setIsModalVisible(true), setIsLoginModal(false)]}
+                onPressIn={() => setPressed2(true)}
+                onPressOut={() => setPressed2(false)}
+              >
+                <Text style={[styles.buttonText2, pressed2 && styles.btnTextchange2]}>
+                  Create New Account
+                </Text>
+              </Pressable>
+            ) : ''}
             {/* Sign up btn  */}
-            <Pressable
-              style={[styles.btn2, pressed2 && styles.btnPressed2]}
-              onPress={() => [setIsModalVisible(true), setIsLoginModal(false)]}
-              onPressIn={() => setPressed2(true)}
-              onPressOut={() => setPressed2(false)}
-            >
-              <Text style={[styles.buttonText2, pressed2 && styles.btnTextchange2]}>
-                Create New Account
-              </Text>
-            </Pressable>
           </View>
         </ScrollView>
       </View>
