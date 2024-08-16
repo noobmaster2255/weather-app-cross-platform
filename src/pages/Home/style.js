@@ -14,32 +14,32 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundColor,
   },
-  contentContainer:{
+  contentContainer: {
     flexGrow: 1,
-    alignItems:'center',
+    alignItems: "center",
   },
   container: {
     backgroundColor: colors.backgroundColor,
-    display:'flex',
-    flexDirection:'column',
+    display: "flex",
+    flexDirection: "column",
     alignItems: "center",
     paddingHorizontal: 25,
     paddingVertical: 10,
   },
-  topRowContainer:{
-    display:'flex',
-    flexDirection: 'row',
-    alignItems:'center',
-    justifyContent:'space-between',
-    width:'100%',
-    overflow:'hidden',
+  topRowContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    overflow: "hidden",
     marginTop: 10,
     marginBottom: 20,
   },
-  currentLocationIcon:{
+  currentLocationIcon: {
     width: 60,
-    height:60,
-  },  
+    height: 60,
+  },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -92,9 +92,16 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: colors.textColor,
   },
+  iconsCol: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 10,
+    justifyContent: "space-between",
+  },
   weatherImg: {
-    width: 100,
-    height: 100,
+    width: 85,
+    height: 85,
     resizeMode: "contain",
     shadowColor: "#000",
     shadowOffset: { width: 1, height: 5 },
@@ -176,7 +183,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     marginBottom: 30,
-    marginHorizontal:1,
+    marginHorizontal: 1,
 
     item: {
       display: "flex",
@@ -207,7 +214,6 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
     },
   },
- 
 });
 
 export default styles;

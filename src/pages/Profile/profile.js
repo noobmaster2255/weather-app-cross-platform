@@ -11,11 +11,13 @@ import {
 } from "react-native";
 import styles from "./style";
 import { useState } from "react";
+import ModalForm from "../../components/Modal/ModalForm/ModalForm";
 
 export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const [pressed, setPressed] = useState(false);
   const [pressed2, setPressed2] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -43,10 +45,12 @@ export default function ProfileScreen({ navigation }) {
               value={isEnabled}
             />
           </View>
+          <ModalForm isVisible={isModalVisible} onClose={()=> setIsModalVisible(false)} isLogin={false}/>
+
           <View style={styles.btnContainer}>
+
             <Pressable
               style={[styles.btn, pressed && styles.btnPressed]}
-              onPress={() => console.log("Pressed")}
               onPressIn={() => setPressed(true)}
               onPressOut={() => setPressed(false)}
             >
@@ -55,7 +59,7 @@ export default function ProfileScreen({ navigation }) {
 
             <Pressable
               style={[styles.btn2, pressed2 && styles.btnPressed2]}
-              onPress={() => console.log("Sign up pressed")}
+              onPress={() => setIsModalVisible(true)}
               onPressIn={() => setPressed2(true)}
               onPressOut={() => setPressed2(false)}
             >
