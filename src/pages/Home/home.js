@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
+  Pressable,
 } from "react-native";
 import styles from "./style";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -15,12 +16,15 @@ import { useSelector, useDispatch } from "react-redux";
 import * as database from "../../database";
 import Forecasts from "../../components/Forecasts/forecasts";
 import { setHomeLocation } from "../../redux/weatherSlice";
+import * as Location from 'expo-location';
+
 
 
 export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   const [searchQuery, setSearchQuery] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const data = useSelector((state) => state.weather.homeLocation)
 
@@ -30,11 +34,26 @@ export default function HomeScreen({ navigation }) {
 
   const handleSeachQuerySubmit = async (event) => {
     setSearchQuery('');
-    const result = await database.getSearchWeatherDetails(event.nativeEvent.text)
+    getWeatherDetails(event.nativeEvent.text)
+  }
+
+  const getWeatherDetails = async (query) => {
+    console.log('query: ', query);
+    const result = await database.getSearchWeatherDetails(query)
       .then(res => {
         return res
       });
     dispatch(setHomeLocation(result));
+  }
+
+  const handleLocationWeather = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+    getWeatherDetails(`${location.coords.latitude},${location.coords.longitude}`);
   }
 
   if (data) {
@@ -43,10 +62,12 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.container}>
           <StatusBar style="auto" />
           <View style={styles.topRowContainer}>
-            <Image
-              style={styles.currentLocationIcon}
-              source={require("../../../assets/images/loc-icon.png")}
-            />
+            <Pressable onPress={handleLocationWeather}>
+              <Image
+                style={styles.currentLocationIcon}
+                source={require("../../../assets/images/loc-icon.png")}
+              />
+            </Pressable>
             <View style={styles.searchContainer}>
               <Ionicons name="search" size={26} color="gray" style={styles.searchIcon} />
               <TextInput
@@ -127,10 +148,12 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.container}>
           <StatusBar style="auto" />
           <View style={styles.topRowContainer}>
-            <Image
-              style={styles.currentLocationIcon}
-              source={require("../../../assets/images/loc-icon.png")}
-            />
+            <Pressable onPress={handleLocationWeather}>
+              <Image
+                style={styles.currentLocationIcon}
+                source={require("../../../assets/images/loc-icon.png")}
+              />
+            </Pressable>
             <View style={styles.searchContainer}>
               <Ionicons name="search" size={26} color="gray" style={styles.searchIcon} />
               <TextInput
