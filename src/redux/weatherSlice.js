@@ -1,33 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export const weatherSlice = createSlice({
-    name: 'location',
+    name: 'weather',
     initialState: {
-        locations: {}
+        bookmarkedLocations: [],
+        homeLocation: null,
+        foreCasts: []
     },
     reducers: {
-        setLocations: (state, action) => {
-            console.log(" set locationss");
-            state.tasks = action.payload;
+        setBookmarks: (state, action) => {
+            console.log(" set bookamrks");
+            state.bookmarkedLocations = action.payload;
         },
 
-        addBookmarks: (state, action) => {
-            console.log(" add location");
+        addBookmark: (state, action) => {
+            console.log(" add bookmark");
 
-            state.locations.push(action.payload);
+            state.bookmarkedLocations.push(action.payload);
 
         },
-
-        
 
         deleteBookmark: (state, action) => {
-            console.log(" delete task:" + action.payload);
-            const id = action.payload
-            const updatedTasks = state.tasks.filter((location) => location.id != id);
-            state.tasks = updatedTasks;
+            console.log(" delete bookmark:" + action.payload);
+            const id = action.payload;
+            const updatedBookmerkedLocations = state.lcoa.filter((loc) => loc.location.name != id);
+            state.bookmarkedLocations = updatedBookmerkedLocations;
+        },
+
+        setHomeLocation: (state, action) => {
+            console.log('set home location ', action.payload);
+            state.homeLocation =  action.payload;
+            state.foreCast = action.payload.forecast.forecastday
         }
     }
 });
 
-export const { setLocations, addBookmarks, deleteBookmark } = weatherSlice.actions;
+export const { setLocations, addBookmarks, deleteBookmark, setHomeLocation } = weatherSlice.actions;
 export default weatherSlice.reducer;
