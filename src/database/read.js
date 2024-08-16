@@ -28,9 +28,9 @@ export async function getSearchWeatherDetails(query) {
 
     try {
     const response = await fetch(apiUrlStr);
-    console.log('res ',response);
+    // console.log('res ',response);
      const json = await response.json();
-     console.log('json ',json);
+    //  console.log('json ',json);
      return json;
     }catch(error){
         console.log('error ',error);
