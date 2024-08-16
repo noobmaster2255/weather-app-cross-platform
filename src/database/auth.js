@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import Toast from "react-native-toast-message";
 import showToast from "../components/ToastItem/ToastItem";
@@ -51,4 +52,19 @@ export function checkUserLoginStatus(callback) {
       callback(false, null);
     }
   });
+}
+
+export function logOut() {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {
+      console.log("User is logged out:", user.email);
+      showToast("success", "Log out successfull!");
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      showToast("error", "LogOut Failed");
+      console.error(`Error [${errorCode}]: ${errorMessage}`);
+    });
 }

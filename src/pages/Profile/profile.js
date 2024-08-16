@@ -20,15 +20,37 @@ export default function ProfileScreen({ navigation }) {
   const [pressed, setPressed] = useState(false);
   const [pressed2, setPressed2] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoginModal, setIsLoginModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    database.checkUserLoginStatus((loggedIn, user) => {
-      setIsLoggedIn(loggedIn);
-      setUser(user);
-    });
+    const checkLoginStatus = async () => {
+      database.checkUserLoginStatus((loggedIn, user) => {
+        setIsLoggedIn(loggedIn);
+        setUser(user);
+      });
+    };
+
+    checkLoginStatus();
   }, []);
+
+  const handleLogout = async() => {
+      await database.logOut()
+      setIsLoggedIn(false);
+      setUser(null);
+  };
+
+  const handleLogin = () => {
+    setIsModalVisible(true);
+  };
+  const formatUserEmail = (email) => {
+    const userEmail = email ? email : "noobmaster@gmail.com";
+    const [username] = userEmail.split("@");
+    const capitalizedUsername = username.charAt(0).toUpperCase() + username.slice(1);
+
+    return capitalizedUsername;
+  };
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -53,8 +75,8 @@ export default function ProfileScreen({ navigation }) {
             />
           </View>
           <View>
-            <Text style={styles.profileName}>NoobMaster</Text>
-            <Text style={styles.profileEmail}>noobmaster@gmail.com</Text>
+            <Text style={styles.profileName}>{formatUserEmail(user)}</Text>
+            <Text style={styles.profileEmail}>{user ? user : "noobmaster@gmail.com"}</Text>
           </View>
 
           {/* Notifications  */}
@@ -73,23 +95,36 @@ export default function ProfileScreen({ navigation }) {
           <ModalForm
             isVisible={isModalVisible}
             onClose={() => setIsModalVisible(false)}
-            isLogin={true}
+            isLogin={isLoginModal}
           />
 
           <View style={styles.btnContainer}>
-            {/* Logout btn  */}
-            <Pressable
-              style={[styles.btn, pressed && styles.btnPressed]}
-              onPressIn={() => setPressed(true)}
-              onPressOut={() => setPressed(false)}
-            >
-              <Text style={[styles.buttonText, pressed && styles.btnTextchange]}>Logout</Text>
-            </Pressable>
+            {isLoggedIn ? (
+              // Logout btn
+              <Pressable
+                style={[styles.btn, pressed && styles.btnPressed]}
+                onPress={handleLogout}
+                onPressIn={() => setPressed(true)}
+                onPressOut={() => setPressed(false)}
+              >
+                <Text style={[styles.buttonText, pressed && styles.btnTextchange]}>Logout</Text>
+              </Pressable>
+            ) : (
+              // LogIn   button
+              <Pressable
+                style={[styles.btn, pressed && styles.btnPressed]}
+                onPress={() => [setIsModalVisible(true), setIsLoginModal(true)]}
+                onPressIn={() => setPressed(true)}
+                onPressOut={() => setPressed(false)}
+              >
+                <Text style={[styles.buttonText, pressed && styles.btnTextchange]}>Login</Text>
+              </Pressable>
+            )}
 
             {/* Sign up btn  */}
             <Pressable
               style={[styles.btn2, pressed2 && styles.btnPressed2]}
-              onPress={() => setIsModalVisible(true)}
+              onPress={() => [setIsModalVisible(true), setIsLoginModal(false)]}
               onPressIn={() => setPressed2(true)}
               onPressOut={() => setPressed2(false)}
             >

@@ -9,16 +9,13 @@ const ModalForm = ({ isVisible, onClose, isLogin }) => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("Email:", email);
-    console.log("Password:", password);
     if (isLogin) {
-      database.login(email, password);
       console.log("Logging in...");
+      database.login(email, password);
     } else {
-      database.signUp(email, password);
       console.log("Signing up...");
+      database.signUp(email, password);
     }
-   
     setEmail("");
     setPassword("");
     onClose();
