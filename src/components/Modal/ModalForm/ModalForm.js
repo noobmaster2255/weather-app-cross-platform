@@ -1,19 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Image, Modal, Pressable, Text, TextInput, View } from "react-native";
 import styles from "./styles";
+import * as database from "../../../database";
+import Toast from "react-native-toast-message";
 
 const ModalForm = ({ isVisible, onClose, isLogin }) => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    console.log("Username:", username);
+    console.log("Email:", email);
     console.log("Password:", password);
     if (isLogin) {
+      database.login(email, password);
       console.log("Logging in...");
     } else {
+      database.signUp(email, password);
       console.log("Signing up...");
     }
+   
+    setEmail("");
+    setPassword("");
     onClose();
   };
 
@@ -21,7 +28,7 @@ const ModalForm = ({ isVisible, onClose, isLogin }) => {
     <Modal animationType="fade" transparent={true} visible={isVisible} onRequestClose={onClose}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-        <View style={styles.profileIcon}>
+          <View style={styles.profileIcon}>
             <Image
               style={styles.profileImg}
               source={require("../../../../assets/images/icon1.png")}
@@ -29,9 +36,11 @@ const ModalForm = ({ isVisible, onClose, isLogin }) => {
           </View>
           <TextInput
             style={styles.input}
-            placeholder="Username"
-            onChangeText={(text) => setUsername(text)}
-            value={username}
+            placeholder="Email"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <TextInput
             style={styles.input}
@@ -39,6 +48,8 @@ const ModalForm = ({ isVisible, onClose, isLogin }) => {
             secureTextEntry
             onChangeText={(text) => setPassword(text)}
             value={password}
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <View style={styles.buttonContainer}>
             {/* <Button title="Login" onPress={handleLogin} /> */}

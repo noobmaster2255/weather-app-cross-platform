@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 const colors = {
   textColor: "#000",
   textColor2: "#fff",
-    backgroundColor: "#fff",
+  backgroundColor: "#fff",
   tileColor: "#deebfe",
   tileColor2: "#375f96",
 };
@@ -24,6 +24,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 10,
     width: "100%",
+  },
+  toastContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 100,
   },
   titile: {
     marginTop: 10,
