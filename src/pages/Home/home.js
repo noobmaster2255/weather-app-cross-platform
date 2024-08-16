@@ -31,9 +31,15 @@ export default function HomeScreen({ navigation }) {
   const data = useSelector((state) => state.weather.homeLocation);
 
   useEffect(() => {
+    database.checkUserLoginStatus((loggedIn, user) => {
+      setUserLogIn(loggedIn);
+    });
     if (isUserLogIn && data) {
       const location = `${data.location.name}_${data.location.region}`;
-      setBookMarkAdded(database.checkBookmarkStatus(location));
+      database.checkBookmarkStatus(location).then((bookmarkStatus) => {
+        console.log('bookmarkStatus',bookmarkStatus)
+        setBookMarkAdded(bookmarkStatus);
+      });
     } else {
       setBookMarkAdded(false);
     }
@@ -44,9 +50,6 @@ export default function HomeScreen({ navigation }) {
   };
 
   const handleBookmarkClick = () => {
-    database.checkUserLoginStatus((loggedIn, user) => {
-      setUserLogIn(loggedIn);
-    });
     if (isUserLogIn) {
       const isAdded = database.addBookmark(data);
       if (isAdded) {

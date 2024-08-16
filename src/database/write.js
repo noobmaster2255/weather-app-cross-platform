@@ -26,22 +26,19 @@ export async function addBookmark(data) {
 }
 
 export async function checkBookmarkStatus(location) {
-  try {
+
+  console.log(`${auth.currentUser.uid}_${location}`)
+  return new Promise(async (resolve, reject) => {
     const q = query(
       collection(db, "bookmarks"),
       where("id", "==", `${auth.currentUser.uid}_${location}`)
     );
     const querySnapshot = await getDocs(q);
-    if (querySnapshot) {
-      querySnapshot.forEach((element) => {
-        return true;
-      });
-    } else {
-      return false;
-    }
-  } catch (error) {
-    console.error("checkBookmarkStatus: ",error.message)
-  }
+    querySnapshot.forEach((element) => {
+      resolve(true);
+    });
+    resolve(false);
+  });
 }
 
 export async function updateBookark(id, data) {
