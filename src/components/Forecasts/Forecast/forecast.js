@@ -3,8 +3,8 @@ import { Text, View } from "react-native";
 import styles from "./style.js";
 
 const Forecast = ({ forecastDay , index}) => {
-    console.log('fday: ', forecastDay);
-    console.log('index: ', index);
+    // console.log('fday: ', forecastDay);
+    // console.log('index: ', index);
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let day = "Tomorrow";
     //if(index > 1){

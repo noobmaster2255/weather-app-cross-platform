@@ -6,9 +6,10 @@ import {
   signOut,
 } from "firebase/auth";
 import showToast from "../components/ToastItem/ToastItem";
+import { auth } from "./config";
 
 export async function signUp(email, password) {
-  const auth = getAuth();
+  // const auth = getAuth();
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -24,7 +25,7 @@ export async function signUp(email, password) {
 }
 
 export async function login(email, password) {
-  const auth = getAuth();
+  // const auth = getAuth();
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
@@ -39,7 +40,7 @@ export async function login(email, password) {
 }
 
 export function checkUserLoginStatus(callback) {
-  const auth = getAuth();
+  // const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log("User is logged in:", user.email);
@@ -54,7 +55,7 @@ export function checkUserLoginStatus(callback) {
 }
 
 export async function logOut() {
-  const auth = getAuth();
+  // const auth = getAuth();
   try {
     await signOut(auth);
     showToast("success", "Log out successfull!", "");
