@@ -4,8 +4,7 @@ export const weatherSlice = createSlice({
     name: 'weather',
     initialState: {
         bookmarkedLocations: [],
-        homeLocation: null,
-        foreCasts: []
+        homeLocation: null
     },
     reducers: {
         setBookmarks: (state, action) => {
@@ -30,7 +29,6 @@ export const weatherSlice = createSlice({
         setHomeLocation: (state, action) => {
             // console.log('set home location ', action.payload);
             state.homeLocation =  action.payload;
-            state.foreCast = action.payload.forecast.forecastday
         }
     }
 });

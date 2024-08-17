@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TextInput,
   ScrollView,
-  Pressable,
+  Pressable, Alert, Linking, Platform
 } from "react-native";
 import styles from "./style";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -37,7 +37,7 @@ export default function HomeScreen({ navigation }) {
     if (isUserLogIn && data) {
       const location = `${data.location.name}_${data.location.region}`;
       database.checkBookmarkStatus(location).then((bookmarkStatus) => {
-        console.log('bookmarkStatus',bookmarkStatus)
+        console.log('bookmarkStatus', bookmarkStatus)
         setBookMarkAdded(bookmarkStatus);
       });
     } else {
@@ -73,14 +73,35 @@ export default function HomeScreen({ navigation }) {
   };
 
   const handleLocationWeather = async () => {
+    console.log('location weather');
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      setErrorMsg("Permission to access location was denied");
-      return;
+      createLocationPermissionAlert();
+    } else {
+      let location = await Location.getCurrentPositionAsync({});
+      getWeatherDetails(`${location.coords.latitude},${location.coords.longitude}`);
     }
-    let location = await Location.getCurrentPositionAsync({});
-    getWeatherDetails(`${location.coords.latitude},${location.coords.longitude}`);
   };
+
+  const createLocationPermissionAlert = () =>
+    Alert.alert('Location Permission', 'Location permission is not granted. To change permission go to settings.', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'OK', onPress: () => {
+          if (Platform.OS === 'ios') {
+            Linking.openSettings().catch(() => console.log('Unable to open settings'));
+          }
+          if (Platform.OS === 'android') {
+            Linking.openSettings().catch(() => console.log('Unable to open settings'));
+          }
+        }
+      },
+    ]);
+
   let dayOfWeek = null;
   if (data) {
     const date = new Date(data.location.localtime);
