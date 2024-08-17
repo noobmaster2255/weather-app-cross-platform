@@ -13,11 +13,11 @@ import { db, auth } from "./config";
 
 export async function addBookmark(data) {
   try {
-    let userId = auth.currentUser.uid;
-    let weatherData = data ? data : "";
+    const userId = auth.currentUser.uid;
+    const weatherData = {...data};
     weatherData.id = `${userId}_${data.location.name}_${data.location.region}`;
-    data.userId = userId;
-    setDoc(doc(db, "bookmarks", `${userId}_${data.location.name}_${data.location.region}`), data);
+    weatherData.userId = userId;
+    await setDoc(doc(db, "bookmarks", `${userId}_${data.location.name}_${data.location.region}`), weatherData);
     return true;
   } catch (error) {
     console.error(error.message);
@@ -27,7 +27,6 @@ export async function addBookmark(data) {
 
 export async function checkBookmarkStatus(location) {
 
-  console.log(`${auth.currentUser.uid}_${location}`)
   return new Promise(async (resolve, reject) => {
     const q = query(
       collection(db, "bookmarks"),

@@ -26,31 +26,15 @@ export default function HomeScreen({ navigation }) {
 
   const [searchQuery, setSearchQuery] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const [isUserLogIn, setUserLogIn] = useState(false);
   const [isBookmarkAdded, setBookMarkAdded] = useState(false);
   const data = useSelector((state) => state.weather.homeLocation);
-
-  useEffect(() => {
-    database.checkUserLoginStatus((loggedIn, user) => {
-      setUserLogIn(loggedIn);
-    });
-    if (isUserLogIn && data) {
-      const location = `${data.location.name}_${data.location.region}`;
-      database.checkBookmarkStatus(location).then((bookmarkStatus) => {
-        console.log('bookmarkStatus', bookmarkStatus)
-        setBookMarkAdded(bookmarkStatus);
-      });
-    } else {
-      setBookMarkAdded(false);
-    }
-  }, []);
 
   const handleSearchQueryChange = (value) => {
     setSearchQuery(value);
   };
 
   const handleBookmarkClick = () => {
-    if (isUserLogIn) {
+    if (auth.currentUser) {
       const isAdded = database.addBookmark(data);
       if (isAdded) {
         setBookMarkAdded(true);
@@ -102,11 +86,25 @@ export default function HomeScreen({ navigation }) {
       },
     ]);
 
-  let dayOfWeek = null;
-  if (data) {
-    const date = new Date(data.location.localtime);
-    dayOfWeek = new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(date);
-  }
+
+  const handleBookmarkStatus = () => {
+    if (auth.currentUser && data) {
+      const location = `${data.location.name}_${data.location.region}`;
+      database.checkBookmarkStatus(location).then((bookmarkStatus) => {
+        setBookMarkAdded(bookmarkStatus);
+      });
+    }
+  };
+  handleBookmarkStatus();
+
+  const handleDateToDay = () => {
+    let dayOfWeek = null;
+    if (data) {
+      const date = new Date(data.location.localtime);
+      dayOfWeek = new Intl.DateTimeFormat(undefined, { weekday: "long" }).format(date);
+    }
+    return dayOfWeek;
+  };
 
   if (data) {
     return (
@@ -148,7 +146,7 @@ export default function HomeScreen({ navigation }) {
                 <Text style={styles.locationName}>
                   {data.location.name}, {data.location.region}
                 </Text>
-                <Text style={{ color: "#717171" }}>{dayOfWeek}</Text>
+                <Text style={{ color: "#717171" }}>{handleDateToDay()}</Text>
               </View>
               <View style={styles.iconsCol}>
                 {/* bookmark-sharp */}
