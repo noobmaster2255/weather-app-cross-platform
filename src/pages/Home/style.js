@@ -142,11 +142,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     // width: "50%",
+    overflow: 'hidden',  
 
     imageConatiner: {
       width: 100,
       height: 100,
       marginBottom: 20,
+      overflow: 'hidden',  
+      justifyContent:'center',
+      alignItems: 'center',   
     },
     img: {
       width: 100,
@@ -156,6 +160,7 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.2,
       shadowRadius: 4,
       elevation: 5,
+      resizeMode: 'cover',
     },
     weatherConditonLabel: {
       fontSize: 16,

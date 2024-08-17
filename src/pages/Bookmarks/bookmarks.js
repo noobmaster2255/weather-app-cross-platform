@@ -1,25 +1,29 @@
 import { View, Text, Button, StatusBar, SafeAreaView, ScrollView, Image } from "react-native";
 import styles from "./style";
 import BookmarkItem from "../../components/BookmarkItem/bookmark";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import * as database from "../../database";
 import Toast from "react-native-toast-message";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function BookmarkScreen({ navigation }) {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await database.load();
-        setData(result);
-      } catch (error) {
-        console.error("Error loading data:", error.message);
-      }
-    };
+  useFocusEffect(
+    useCallback(() => {
+      const fetchData = async () => {
+        try {
+          const result = await database.load();
+          setData(result);
+        } catch (error) {
+          console.error("Error loading data:", error.message);
+        }
+      };
+  
+      fetchData();
+    }, [])
+  );
 
-    fetchData();
-  }, []);
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>

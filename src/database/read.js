@@ -9,15 +9,18 @@ export async function load() {
   const data = [];
   if (auth.currentUser) {
     const querySnapshot = await getDocs(
-      query(collection(db, "bookmarks"), where("id", "==", auth.currentUser.uid))
+      query(collection(db, "bookmarks"), where("userId", "==", auth.currentUser.uid))
     );
-    querySnapshot.forEach((doc) => {
+
+    for (const doc of querySnapshot.docs) {
+      const bookmarkData = doc.data();
+      const weatherDetails = await getSearchWeatherDetails(bookmarkData.location.name);
       data.push({
-        ...doc.data(),
         id: doc.id,
-      });
-      console.log(data);
-    });
+       ...weatherDetails
+      })
+
+    }
   } else {
     showToast("info", "Login to see bookmarks")
   }
@@ -36,5 +39,6 @@ export async function getSearchWeatherDetails(query) {
     return json;
   } catch (error) {
     console.log("error ", error);
+    return null;
   }
 }
