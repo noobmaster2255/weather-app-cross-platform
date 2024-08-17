@@ -41,6 +41,9 @@ export default function HomeScreen({ navigation }) {
         showToast("success", "BookedMark added successfully!");
       }
     }
+    else{
+      showToast("info","Login to add to bookmark")
+    }
   };
 
   const handleSeachQuerySubmit = async (event) => {

@@ -5,18 +5,13 @@ const apiKey = "2eb345d2cc5549afb6030800241407";
 const baseUrl = "http://api.weatherapi.com/v1/forecast.json?";
 
 export async function load() {
-    console.log('database load');
     const data = [];
-    
-
     const querySnapshot = await getDocs(collection(db, "bookmarks"));
     querySnapshot.forEach((doc) => {
-        
         data.push({
             ...doc.data(),
             id: doc.id
         });
-        
     });
     return data;
 }

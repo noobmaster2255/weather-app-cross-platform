@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
     label1: {
-      fontSize: 20,
+      fontSize: 16,
       fontWeight: "bold",
       color: colors.textColor2,
     },
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
 
     label2: {
-      fontSize: 40,
+      fontSize: 35,
       fontWeight: "800",
       color: colors.textColor2,
       marginBottom: 10,
