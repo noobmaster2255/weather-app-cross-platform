@@ -3,6 +3,7 @@ import styles from "./style";
 import BookmarkItem from "../../components/BookmarkItem/bookmark";
 import { useEffect, useState } from "react";
 import * as database from "../../database";
+import Toast from "react-native-toast-message";
 
 export default function BookmarkScreen({ navigation }) {
   const [data, setData] = useState([]);
@@ -23,6 +24,9 @@ export default function BookmarkScreen({ navigation }) {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
         <StatusBar style="auto" />
+        <View style={styles.toastContainer}>
+            <Toast />
+          </View>
         <Text style={styles.titile}>Saved Locations</Text>
         <ScrollView
           contentContainerStyle={styles.contentContainer}
