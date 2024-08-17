@@ -7,13 +7,14 @@ import {
   ScrollView,
   Image,
   Switch,
-  Pressable,
+  Pressable, Platform
 } from "react-native";
 import styles from "./style";
 import { useEffect, useState } from "react";
 import ModalForm from "../../components/Modal/ModalForm/ModalForm";
 import Toast from "react-native-toast-message";
 import * as database from "../../database";
+import * as Notifications from 'expo-notifications';
 
 export default function ProfileScreen({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -24,6 +25,24 @@ export default function ProfileScreen({ navigation }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  const handleNotificationPress = async () => {
+    console.log('handle  notificaiton press')
+    if (!isEnabled) {
+      const scheduled = await scheduleReminderNotification();
+      console.log('scheduled', { scheduled });
+      if (scheduled) {
+        console.log('set notificaiton true');
+        setIsEnabled(true);
+      }
+    } else {
+      const cancelled = await cancelReminderNotification();
+      if (cancelled) {
+        console.log('set notification false');
+        setIsEnabled(false);
+      }
+    }
+  }
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       database.checkUserLoginStatus((loggedIn, user) => {
@@ -32,6 +51,17 @@ export default function ProfileScreen({ navigation }) {
       });
     };
     checkLoginStatus();
+
+    //check previously scheduled notifictaions
+    (async () => {
+      console.log('previously set notification');
+      const previouslyScheduled = await getSchedule();
+      if (previouslyScheduled.find((item) => item.type === 'reminder')) {
+        console.log('set notification true');
+        setIsEnabled(true);
+      }
+
+    })();
   }, []);
 
   const handleLogout = async () => {
@@ -43,6 +73,7 @@ export default function ProfileScreen({ navigation }) {
   const handleLogin = () => {
     setIsModalVisible(true);
   };
+
   const formatUserEmail = (email) => {
     const userEmail = email ? email : "";
     const [username] = userEmail.split("@");
@@ -50,6 +81,86 @@ export default function ProfileScreen({ navigation }) {
 
     return capitalizedUsername;
   };
+
+
+  async function scheduleReminderNotification() {
+    console.log('Schedule for: ', Platform.OS)
+    try {
+
+      const permissions = await Notifications.getPermissionsAsync();
+      console.log('permissions: ', permissions)
+      if (!permissions.granted) {
+        const request = await Notifications.requestPermissionsAsync({
+          ios: {
+            allowAlert: true,
+            allowSound: true,
+            allowBadge: true
+          }
+        });
+        if (!request.granted) {
+          console.log('permission request not granted');
+          return false;
+        }
+      }
+      const id = await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Weather Reminder',
+          body: 'Reminder to check your weather.',
+          color: '#ffffff',
+          data: {
+            type: 'reminder'
+          }
+        },
+        trigger: {
+          seconds: 60,
+          repeats: true
+        }
+      });
+
+      if (!id) {
+        console.log('notification id not available');
+        return false;
+      }
+
+      return true;
+
+    } catch (error) {
+      console.log('somer error occured while scheduling notification: ', error)
+      return false
+    }
+  }
+
+  async function cancelReminderNotification() {
+    let canceled = false;
+    const schedule = await getSchedule();
+    console.log(schedule);
+
+    for (const item of schedule) {
+      if (item.type === 'reminder') {
+        await Notifications.cancelScheduledNotificationAsync(item.id);
+        console.log('Notifiaction canceled: ', item.id);
+        canceled = true;
+      }
+    }
+    console.log('Canceled: ', canceled);
+
+    return canceled
+  }
+
+  async function getSchedule() {
+    const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync()
+    console.log("schedule ", scheduledNotifications);
+
+    const schedule = [];
+    scheduledNotifications.forEach((scheduledNotification) => {
+      schedule.push({
+        id: scheduledNotification.identifier,
+        type: scheduledNotification.content.data.type
+      });
+    });
+
+    return schedule;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -80,12 +191,14 @@ export default function ProfileScreen({ navigation }) {
 
           {/* Notifications  */}
           <View style={styles.notificationContainer}>
-            <Text style={styles.notificationLabel}>Notifications</Text>
+            <View>
+              <Text style={styles.notificationLabel}>Notifications</Text>
+            </View>
             <Switch
               trackColor={{ false: "#deebfe", true: "#375f96" }}
               thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
               ios_backgroundColor="#deebfe"
-              onValueChange={setIsEnabled}
+              onValueChange={handleNotificationPress}
               value={isEnabled}
             />
           </View>
