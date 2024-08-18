@@ -91,7 +91,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
   },
-
+  notificationLabel2: {
+    fontSize: 12,
+    color: "#808080"
+  },
   btnContainer: {
     display: "flex",
     flexDirection: "column",
